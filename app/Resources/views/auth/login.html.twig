@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="valign-wrapper row login-box">
+        <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+            <h4 class="center-align">CRM <br> NURTELECOM</h4>
+            <form>
+                <div class="card-content">
+                    <span class="card-title">Введите данные</span>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="login">Пользователь</label>
+                            <input type="text" class="validate" name="login" id="login" />
+                        </div>
+                        <div class="input-field col s12">
+                            <label for="password">Пароль </label>
+                            <input type="password" class="validate" name="password" id="password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <input type="reset" id="reset" class="btn-flat grey-text waves-effect" value="Сбросить">
+                    <input type="submit" class="btn indigo accent-3 waves-effect waves-light" value="Войти">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+{% endblock %}
