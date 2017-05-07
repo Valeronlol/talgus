@@ -5,7 +5,7 @@
         <div class="row main-wrap">
             {% include 'default/header.html.twig' %}
             {% include 'default/sidebar.html.twig' %}
-            {% include 'default/content.html.twig' %}
+            {% block content %}{% endblock %}
         </div>
     </div>
 {% endblock %}

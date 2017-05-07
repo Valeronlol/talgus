@@ -1,0 +1,30 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+
+    <div class="row content-full-vh">
+        <div class="col s10 offset-s1 m6 offset-m3 l6 offset-l3">
+            <form class="card-panel teal lighten-5 center-align">
+                <h4>Форма смены пароля</h4>
+                <div class="input-field col s12">
+                    <label for="old-password">Введите старый пароль</label>
+                    <input type="password" class="validate" name="old-password" id="old-password" />
+                </div>
+
+                <div class="input-field col s12">
+                    <label for="new-password">Введите новый пароль</label>
+                    <input type="password" class="validate" name="new-password" id="new-password" />
+                </div>
+
+                <div class="input-field col s12">
+                    <label for="repeat-new-password">Повторите ввод нового пароля</label>
+                    <input type="password" class="validate" name="repeat-new-password" id="repeat-new-password" />
+                </div>
+
+                <a href="#" class="btn-flat grey-text waves-effect">Помощь</a>
+                <input type="submit" class="btn indigo accent-3 waves-effect waves-light" value="Подтвердить">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

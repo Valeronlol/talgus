@@ -1,6 +1,9 @@
 html, body, .login-box {
     height: 100%;
 }
+body * {
+    outline: none;
+}
 
 input[type="password"], input[type="email"] {
     padding: 0 10px;
@@ -22,4 +25,34 @@ i.material-icons{
 
 .modal-exit {
     max-width: 400px!important;
+}
+
+.content-full-vh {
+    min-height: calc(90vh - 64px);
+    margin: 0;
+}
+
+.action-table-row a {
+    display: block;
+    transition: 0.4s ease-in-out;
+}
+
+.action-table-row a:hover {
+    text-decoration: underline;
+}
+
+.dropdown-content {
+    min-width: 0;
+    min-height: 0;
+    overflow: visible !important;
+}
+
+.secondDropDown {
+    /*adjust by your needs*/
+    margin-left: 126px !important;
+    margin-top: -50px !important;
+}
+
+.roles {
+    min-height: 225px !important;
 }

@@ -1,0 +1,57 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    
+    <div class="row content-full-vh">
+        <div class="col s10 offset-s1 m6 offset-m3 l6 offset-l3">
+            <form class="card-panel teal lighten-5 center-align">
+                <h5>Форма создания пользователя</h5>
+                <div class="input-field col s12">
+                    <label for="new-user-name">Введите логин нового пользователя</label>
+                    <input type="text" class="validate" name="new-user-name" id="new-user-name" />
+                </div>
+
+                <div class="input-field col s12">
+                    <label for="new-user-password">Введите пароль пользователя</label>
+                    <input type="password" class="validate" name="new-user-password" id="new-user-password" />
+                </div>
+
+                <div class="input-field col s12">
+                    <label for="new-user-password">Инициалы пользователя</label>
+                    <input type="text" class="validate" name="new-user-password" id="new-user-password" />
+                </div>
+
+                <div class="input-field col s12">
+                    <label for="new-user-reason">Укажите причину добавления</label>
+                    <input type="text" class="validate" name="new-user-reason" id="new-user-reason" />
+                </div>
+
+                <div class="input-field col s12 roles">
+                    <h6>Выберите роль нового пользователя</h6>
+                    <p>
+                        <input class="with-gap"  name="group1" type="radio" id="test1" />
+                        <label for="test1">Red</label>
+                    </p>
+                    <p>
+                        <input class="with-gap"  name="group1" type="radio" id="test2" />
+                        <label for="test2">Yellow</label>
+                    </p>
+                    <p>
+                        <input class="with-gap" name="group1" type="radio" id="test3"  />
+                        <label for="test3">Green</label>
+                    </p>
+                    <p>
+                        <input class="with-gap"  name="group1" type="radio" id="test4" />
+                        <label for="test4">Brown</label>
+                    </p>
+                </div>
+
+
+
+                <a href="#" class="btn-flat grey-text waves-effect">Помощь</a>
+                <input type="submit" class="btn indigo accent-3 waves-effect waves-light" value="Подтвердить">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
