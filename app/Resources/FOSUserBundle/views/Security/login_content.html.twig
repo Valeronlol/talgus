@@ -1,0 +1,40 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+<div class="valign-wrapper row login-box">
+    <div class="col card hoverable">
+        <h4 class="center-align">CRM <br> NURTELECOM</h4>
+
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            <div class="card-content">
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
+
+                <span class="card-title">Введите данные</span>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                        <input class="validate" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                    </div>
+                    <div class="input-field col s12">
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                        <input class="validate" type="password" id="password" name="_password" required="required" />
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        <label class="validate" for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action right-align">
+                <input type="reset" id="reset" class="btn-flat grey-text waves-effect" value="Сбросить">
+                <input type="submit" class="btn indigo accent-3 waves-effect waves-light" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -18,16 +18,16 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ));
     }
-
-    /**
-     * @Route("/login", name="login")
-     */
-    public function loginAction(Request $request)
-    {
-
-        return $this->render('auth/login.html.twig');
-    }
-
+//
+//    /**
+//     * @Route("/login", name="login")
+//     */
+//    public function loginAction(Request $request)
+//    {
+//
+//        return $this->render('auth/login.html.twig');
+//    }
+//
     /**
      * @Route("/ua-search", name="ua-search")
      */
@@ -36,24 +36,24 @@ class DefaultController extends Controller
 
         return $this->render('pages/ua.html.twig');
     }
-
-    /**
-     * @Route("/change-password", name="change-password")
-     */
-    public function changePasswordAction(Request $request)
-    {
-
-        return $this->render('auth/change.html.twig');
-    }
-
-    /**
-     * @Route("/create-user", name="create-user")
-     */
-    public function createUserAction(Request $request)
-    {
-
-        return $this->render('user/create.html.twig');
-    }
+//
+//    /**
+//     * @Route("/change-password", name="change-password")
+//     */
+//    public function changePasswordAction(Request $request)
+//    {
+//
+//        return $this->render('auth/change.html.twig');
+//    }
+//
+//    /**
+//     * @Route("/create-user", name="create-user")
+//     */
+//    public function createUserAction(Request $request)
+//    {
+//
+//        return $this->render('user/create.html.twig');
+//    }
 
 
 }

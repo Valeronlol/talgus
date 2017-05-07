@@ -19,7 +19,7 @@ i.material-icons{
     color: #1a237e;
 }
 
-.exit-wrap a {
+.exit-wrap a, .exit-wrap button {
     float: none !important;
 }
 

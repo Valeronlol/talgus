@@ -10,11 +10,11 @@
                     Аккаунт<i class="material-icons right">arrow_drop_down</i>
                 </a>
                 <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!">Смена пароля</a></li>
+                    <li><a href="{{ path('fos_user_change_password') }}">Смена пароля</a></li>
                     <li>
                         <a href="#!" class="subdropdown-button" data-activates="secondDRP">Пользователи</a>
                         <ul id='secondDRP' class='dropdown-content secondDropDown'>
-                            <li><a class="truncate" href="#">Добавить</a></li>
+                            <li><a class="truncate" href="{{ path('fos_user_registration_register') }}">Добавить</a></li>
                             <li><a class="truncate" href="#">Заблокировать</a></li>
                         </ul>
                     </li>
@@ -49,7 +49,7 @@
         <p>Выйти из системы?</p>
     </div>
     <div class="modal-footer center-align exit-wrap">
-        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Да</a>
-        <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Нет</a>
+        <a href="{{ path('fos_user_security_logout') }}" class="modal-action modal-close waves-effect waves-green btn-flat">Да</a>
+        <button type="button" class="modal-action modal-close waves-effect waves-green btn-flat">Нет</button>
     </div>
 </div>
