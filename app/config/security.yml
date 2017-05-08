@@ -31,3 +31,4 @@ security:
         - { path: ^/ua-search, role: [ROLE_ADMIN, ROLE_MANAGER] }
         - { path: ^/statistics, role: [ROLE_ADMIN, ROLE_SELLER] }
         - { path: ^/change-password, role: [ROLE_ADMIN, ROLE_SELLER, ROLE_MANAGER] }
+        - { path: ^/block-user, role: ROLE_ADMIN }

@@ -11,6 +11,8 @@ class AccountController extends Controller
 {
     /**
      * @Route("change-user-password", name="change_user_password")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function changePasswordAction(Request $request)
     {
@@ -73,6 +75,44 @@ class AccountController extends Controller
         return $this->render('auth/change.html.twig', array(
             'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ));
+    }
+
+    /**
+     * @Route("block-user", name="block_user")
+     */
+    public function blockUserAction(Request $request)
+    {
+        $login = $request->request->get('block-user');
+        $submit = $request->request->get('submit');
+        $isblocked = $request->request->get('isblocked') === 'block' ? false : true;
+
+        if($submit)
+        {
+            if (empty($login)) {
+                $this->addFlash(
+                    'error',
+                    'Введите логин для блокировки!'
+                );
+                return $this->render('pages/block.html.twig');
+            }
+
+            $qm = $this->container->get('app.query_model');
+            $resultBlock = $qm->blockuser($login, $isblocked);
+
+            if(!$resultBlock) {
+                $this->addFlash(
+                    'error',
+                    'Такой логин не найден!'
+                );
+            } else {
+                $this->addFlash(
+                    'success',
+                    'Статус блокировки изменен!'
+                );
+            }
+
+        }
+        return $this->render('pages/block.html.twig');
     }
 
     /**

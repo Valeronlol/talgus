@@ -6,4 +6,4 @@ parameters:
 services:
     app.query_model:
         class:     AppBundle\Service\QueryModel
-        arguments: [@doctrine.dbal.default_connection]
+        arguments: [@doctrine.dbal.default_connection, @fos_user.user_manager]

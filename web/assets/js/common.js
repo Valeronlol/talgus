@@ -15,4 +15,8 @@ $(function() {
             alignment: 'left'
         }
     );
+
+    setTimeout(function(){
+        $('div.flash-cont').fadeOut(600);
+    }, 3000);
 });

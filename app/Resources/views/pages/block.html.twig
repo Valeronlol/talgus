@@ -1,0 +1,35 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+
+    <div class="row content-full-vh">
+        <div class="col s10 offset-s1 m6 offset-m3 l6 offset-l3">
+            <form class="card-panel teal lighten-5 center-align" name="change_user_pass" method="POST">
+                <h4>Заблокировать пользователя</h4>
+                <div class="input-field col s12">
+                    <label for="block-user">Введите логин пользователя, которому хотите заблокировать</label>
+                    <input type="text" class="validate" name="block-user" id="block-user" value="{{ app.request.get('block-user') }}" />
+                </div>
+
+                <div class="input-field col s12">
+                    <p>
+                        <input class="with-gap" name="isblocked" type="radio" id="block" checked="checked" value="block" />
+                        <label for="block">Заблокировать</label>
+                    </p>
+                    <p>
+                        <input class="with-gap" name="isblocked" type="radio" id="unlock" value="unlock" />
+                        <label for="unlock">Разблокировать</label>
+                    </p>
+                </div>
+
+                <div class="input-field col s12">
+                    {{ parent() }}
+                </div>
+
+                <input type="reset" class="btn-flat grey-text waves-effect" value="Очистить">
+                <input type="submit" class="btn indigo accent-3 waves-effect waves-light" name="submit" value="Установить новый пароль">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
