@@ -5,7 +5,16 @@
         <div class="row main-wrap">
             {% include 'default/header.html.twig' %}
             {% include 'default/sidebar.html.twig' %}
-            {% block content %}{% endblock %}
+
+            {% block content %}
+                {% for type, flash_messages in app.session.flashBag.all %}
+                    {% for flash_message in flash_messages %}
+                        <div class="card-panel indigo lighten-5 flash-cont">
+                            <span class="flash-{{ type }}">{{ flash_message }}</span>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

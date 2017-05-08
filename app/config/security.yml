@@ -3,16 +3,16 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ZAL:         ROLE_ROLE
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SELLER:      ROLE_SELLER
+        ROLE_MANAGER:     ROLE_MANAGER
+        ROLE_ADMIN:       ROLE_ADMIN
 
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
 
     firewalls:
-        main:
+        default:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
@@ -26,7 +26,8 @@ security:
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/ua-search, role: ROLE_ZAL }
+        - { path: ^/register, role: ROLE_ADMIN }
+        - { path: ^/change-user-password, role: ROLE_ADMIN }
+        - { path: ^/ua-search, role: [ROLE_ADMIN, ROLE_MANAGER] }
+        - { path: ^/statistics, role: [ROLE_ADMIN, ROLE_SELLER] }
+        - { path: ^/change-password, role: [ROLE_ADMIN, ROLE_SELLER, ROLE_MANAGER] }

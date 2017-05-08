@@ -56,3 +56,29 @@ i.material-icons{
 .roles {
     min-height: 225px !important;
 }
+
+.truncate {
+    white-space: initial !important;
+}
+
+.flash-cont {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.flash-notice {
+    color: #9e9d24;
+}
+
+.flash-error {
+    color: #d50000;
+}
+
+.flash-warning {
+    color: #9e9d24;
+}
+
+.flash-success {
+    color: #2e7d32;
+}
