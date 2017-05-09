@@ -1,92 +1,60 @@
 {% extends 'default/index.html.twig' %}
 
 {% block content %}
-    <div class="row content-full-vh">
-        <div class="col s10 offset-s1 m6 offset-m3 l6 offset-l3">
+    <div class="row">
+        <div class="col s10 offset-s1 m6 offset-m3 l6 offset-l3 m30">
             <div>
                 {{ parent() }}
             </div>
-            <form>
+            <form method="POST" class="only-one">
                 <div class="input-field col s12">
-                    <label for="phone">Вz</label>
-                    <input type="tel" class="validate" name="phone" id="phone" />
+                    <label for="phone">Введите номер абонента</label>
+                    <input type="number" class="validate" name="phone" id="phone" />
                 </div>
                 <div class="input-field col s12">
                     <label for="sim">Введите номер сим</label>
-                    <input type="text" class="validate" name="sim" id="sim" />
+                    <input type="number" class="validate" name="sim" id="sim" />
                 </div>
                 <div class="card-action right-align">
                     <input type="reset" id="reset" class="btn-flat grey-text waves-effect" value="Сбросить">
-                    <input type="submit" class="btn indigo accent-3 waves-effect waves-light" value="Подтвердить">
+                    <input type="submit" name="submit" class="btn indigo accent-3 waves-effect waves-light" value="Подтвердить">
                 </div>
             </form>
         </div>
-    </div>
 
-    <div class="row">
-        <table class="bordered highlight centered">
-            <thead>
-                <tr>
-                    <th>ID абонента</th>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Мобильный номер</th>
-                    <th>IMSI сим</th>
-                    <th>Тип абонента</th>
-                    <th>Название Компании</th>
-                    <th>Статус</th>
-                    <th>Действия</th>
-                </tr>
-            </thead>
+        {% if userdata is defined and userdata is not empty %}
+            <table class="bordered highlight centered ">
+                <thead>
+                    <tr>
+                        <th>ID абонента</th>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Мобильный номер</th>
+                        <th>IMSI сим</th>
+                        <th>Адресс</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td class="action-table-row">
-                        <a href="#">Изменить</a>
-                        <a href="#">Просмотр</a>
-                        <a href="#">Перейти к аккаунту</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td class="action-table-row">
-                        <a href="#">Изменить</a>
-                        <a href="#">Просмотр</a>
-                        <a href="#">Перейти к аккаунту</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td class="action-table-row">
-                        <a href="#">Изменить</a>
-                        <a href="#">Просмотр</a>
-                        <a href="#">Перейти к аккаунту</a>
-                    </td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>{{ userdata.subs_id }}</td>
+                        <td>{{ userdata.name }}</td>
+                        <td>{{ userdata.surname }}</td>
+                        <td>{{ userdata.msisdn }}</td>
+                        <td>{{ userdata.imsi }}</td>
+                        <td>{{ userdata.adress }}</td>
+                        <td>{{ userdata.State }}</td>
 
-            </tbody>
-        </table>
+                        <td class="action-table-row">
+                            <a href="#">Изменить</a>
+                            <a href="#">Просмотр</a>
+                            <a href="#">Перейти к аккаунту</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
     </div>
 {% endblock %}

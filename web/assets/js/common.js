@@ -20,5 +20,6 @@ $(function() {
 
     setTimeout(function(){
         $('div.flash-cont').fadeOut(600);
-    }, 3000);
+    }, 6000);
+
 });

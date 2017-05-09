@@ -58,4 +58,54 @@ class QueryModel
         return true;
     }
 
+    /**
+     * find user by phone number
+     * @param $phone
+     * @return mixed
+     */
+    public function getAbonByPhone($phone)
+    {
+        $sql = "select s.subs_id, p.name, p.surname, p.msisdn, p.imsi, p.adress,
+                    case when s.state = 1
+                        then 'active'
+                        when s.state = 0
+                        then 'inactive'
+                        when s.state = '2'
+                        then 'deactivated'
+                            else 'error'
+                            end as State
+                            from subscriber s join personification p on
+                s.msisdn = p.msisdn
+                where s.msisdn = :phone";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("phone", $phone);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    /**
+     * find user by sim card number
+     * @param $phone
+     * @return mixed
+     */
+    public function getAbonBySim($sim)
+    {
+        $sql = "select s.subs_id, p.name, p.surname, p.msisdn, p.imsi, p.adress,
+                    case when s.state = 1
+                        then 'active'
+                        when s.state = 0
+                        then 'inactive'
+                        when s.state = '2'
+                        then 'deactivated'
+                            else 'error'
+                            end as State
+                            from subscriber s join personification p on
+                s.msisdn = p.msisdn
+                where s.imsi = :sim";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("sim", $sim);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
 }
