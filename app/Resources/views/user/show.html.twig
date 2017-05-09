@@ -1,0 +1,39 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    <div class="row center-align">
+        <h2>Статистика пользователя</h2>
+        <table class="bordered highlight centered ">
+            <thead>
+                <tr>
+                    <th>ID абонента</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Мобильный номер</th>
+                    <th>IMSI сим</th>
+                    <th>Адресс</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {#<tr>#}
+                    {#<td>{{ userdata.subs_id }}</td>#}
+                    {#<td>{{ userdata.name }}</td>#}
+                    {#<td>{{ userdata.surname }}</td>#}
+                    {#<td>{{ userdata.msisdn }}</td>#}
+                    {#<td>{{ userdata.imsi }}</td>#}
+                    {#<td>{{ userdata.adress }}</td>#}
+                    {#<td>{{ userdata.State }}</td>#}
+
+                    {#<td class="action-table-row">#}
+                        {#<a href="#">Изменить</a>#}
+                        {#<a href="{{ path('user_show', {'userID': userdata.subs_id}) }}">Просмотр</a>#}
+                        {#<a href="#">Перейти к аккаунту</a>#}
+                    {#</td>#}
+                {#</tr>#}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -3,13 +3,13 @@
 namespace AppBundle\Service;
 
 use Doctrine\DBAL\Connection;
+use FOS\UserBundle\Doctrine\UserManager;
 
 class QueryModel
 {
-    private $connection;
-    private $userManager;
+    private $connection, $userManager;
 
-    public function __construct(Connection $dbalConnection, $user_manager)  {
+    public function __construct(Connection $dbalConnection, UserManager $user_manager)  {
         $this->connection = $dbalConnection;
         $this->userManager = $user_manager;
     }
@@ -104,6 +104,76 @@ class QueryModel
                 where s.imsi = :sim";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue("sim", $sim);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    /**
+     * returns userdata by id
+     * @param $id
+     * @return mixed
+     */
+    public function getUserStatisticsAbonentById($id)
+    {
+        $sql = "select t.priceplan_name as 'Тарифный план',
+                s.balance / 100000 as 'Баланс', 
+                s.billing_language as'язык обслуживания', 
+                s.startdate as 'Дата активации'
+                from priceplan t 
+                join subscriber s on	s.priceplan = t.priceplan_id                                        
+                where s.subs_id = :id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("id", $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    /**
+     * returns userdata by id
+     * @param $id
+     * @return mixed
+     */
+    public function getUserStatisticsBaseServicesById($id)
+    {
+        $sql = "select s.service_desc as 'Тип сервиса',
+                case 
+                when ss.provisioned_state = 0 then 'Отключен' 
+                when ss.provisioned_state = 1 then 'Активен'
+                else 'Ошибка'
+                end as 'Статус'
+                from subscriber_services ss 
+                inner join services s on ss.service_id = s.service_id 
+                inner join subscriber su on ss.subs_id = su.subs_id
+                where su.subs_id = :id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("id", $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    /**
+     * returns userdata by id
+     * @param $id
+     * @return mixed
+     */
+    public function getUserStatisticsAdditionalServiceById($id)
+    {
+        $sql = "select au.auxservice_name as 'Тип сервиса',
+                case 
+                when sa.provisioned = 1 then 'Активный'
+                when sa.provisioned = 2 then 'Пауза'
+                else 'Ошибка'
+                end as 'Статус', 
+                case
+                when sa.nextrecurringchargedate is null then 'отсутствует'
+                else sa.nextrecurringchargedate
+                end as 'Дата снятия следующей АП'
+                from subscriber_aux_services sa
+                inner join auxiliary_services au on au.auxservice_id = sa.auxservice_id
+                inner join subscriber su on sa.subscriber_id = su.subs_id
+                where su.subs_id = :id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("id", $id);
         $stmt->execute();
         return $stmt->fetch();
     }
