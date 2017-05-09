@@ -2,7 +2,9 @@
     <div class="nav-wrapper indigo accent-2">
         <ul class="left hide-on-med-and-down">
             <li>
-                <a href="#" data-activates="slide-out" class="button-collapse-custom">Абонент<i class="material-icons left">menu</i></a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="#" data-activates="slide-out" class="button-collapse-custom">Абонент<i class="material-icons left">menu</i></a>
+                {% endif %}
             </li>
 
             <li class="active">
@@ -11,14 +13,18 @@
                 </a>
                 <ul id="dropdown1" class="dropdown-content">
                     <li><a href="{{ path('fos_user_change_password') }}">Смена пароля</a></li>
-                    <li>
-                        <a href="#!" class="subdropdown-button" data-activates="secondDRP">Пользователи</a>
-                        <ul id='secondDRP' class='dropdown-content secondDropDown'>
-                            <li><a class="truncate" href="{{ path('fos_user_registration_register') }}">Добавить</a></li>
-                            <li><a class="truncate" href="{{ path('change_user_password') }}">Сменить пароль пользователя</a></li>
-                            <li><a class="truncate" href="{{ path('block_user') }}">Заблокировать</a></li>
-                        </ul>
-                    </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li>
+                            <a href="#!" class="subdropdown-button" data-activates="secondDRP">Пользователи</a>
+                            <ul id='secondDRP' class='dropdown-content secondDropDown'>
+                                <li><a class="truncate" href="{{ path('fos_user_registration_register') }}">Добавить</a></li>
+                                <li><a class="truncate" href="{{ path('change_user_password') }}">Сменить пароль пользователя</a></li>
+                                <li><a class="truncate" href="{{ path('block_user') }}">Заблокировать</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+
                     <li><a href="#exit_modal">Выход из системы</a></li>
                 </ul>
             </li>
@@ -41,6 +47,11 @@
             </li>
             <li><a href="#">Настройка сервисов</a></li>
         </ul>
+        <span class="right login-message">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                Вы вошли как: <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+            {% endif %}
+        </span>
     </div>
 </nav>
 

@@ -1,0 +1,10 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    {{ parent() }}
+    <h1>Страница не найдена</h1>
+    <a href="{{ path('homepage') }}" class="btn waves-effect waves-light">
+        <i class="material-icons left">settings_backup_restore</i>
+        Вернуться на главную
+    </a>
+{% endblock %}

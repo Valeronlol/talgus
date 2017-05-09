@@ -97,3 +97,7 @@ i.material-icons{
     margin: 25px 15px;
     display: inline-block;
 }
+
+.login-message {
+    padding: 0 15px;
+}
