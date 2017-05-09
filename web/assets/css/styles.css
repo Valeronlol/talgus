@@ -82,3 +82,18 @@ i.material-icons{
 .flash-success {
     color: #2e7d32;
 }
+
+.fos_user_registration_register ul li {
+    font-weight: bold;
+    font-size: 16px;
+    color: darkred;
+}
+
+#fos_user_registration_form_roles{
+    text-align: center;
+}
+
+#fos_user_registration_form_roles > label {
+    margin: 25px 15px;
+    display: inline-block;
+}

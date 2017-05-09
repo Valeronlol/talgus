@@ -16,6 +16,8 @@ $(function() {
         }
     );
 
+    $('select').material_select();
+
     setTimeout(function(){
         $('div.flash-cont').fadeOut(600);
     }, 3000);

@@ -7,3 +7,8 @@ services:
     app.query_model:
         class:     AppBundle\Service\QueryModel
         arguments: [@doctrine.dbal.default_connection, @fos_user.user_manager]
+
+    app.form.registration:
+        class: AppBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type }

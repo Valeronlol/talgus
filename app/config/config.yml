@@ -73,3 +73,6 @@ fos_user:
     from_email:
         address: "green-travel.kg@mail.ru"
         sender_name: "tangus"
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationFormType
