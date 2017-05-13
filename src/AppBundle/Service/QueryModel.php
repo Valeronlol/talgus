@@ -9,7 +9,8 @@ class QueryModel
 {
     private $connection, $userManager;
 
-    public function __construct(Connection $dbalConnection, UserManager $user_manager)  {
+    public function __construct(Connection $dbalConnection, UserManager $user_manager)
+    {
         $this->connection = $dbalConnection;
         $this->userManager = $user_manager;
     }
@@ -117,7 +118,8 @@ class QueryModel
     {
         $sql = "select t.priceplan_name as 'Тарифный план',
                 s.balance / 100000 as 'Баланс', 
-                s.billing_language as'язык обслуживания', 
+                s.billing_language as'Язык обслуживания', 
+                s.msisdn as'Номер абонента', 
                 s.startdate as 'Дата активации'
                 from priceplan t 
                 join subscriber s on	s.priceplan = t.priceplan_id                                        
@@ -176,6 +178,35 @@ class QueryModel
         $stmt->bindValue("id", $id);
         $stmt->execute();
         return $stmt->fetch();
+    }
+
+    /**
+     * returns userdata by id
+     * @param $id
+     * @return mixed
+     */
+    public function updateBaseServiceStatus($userid, $service, $action)
+    {
+//        $sql = "update subscriber_services ss
+//                inner join services se
+//                on ss.service_id = se.service_id
+//                set provisioned_state = :action
+//                where ss.subs_id = :id
+//                and se.service_desc = :service";
+//        $stmt = $this->connection->prepare($sql);
+//        $stmt->bindValue("action", $action);
+//        $stmt->bindValue("id", $userid);
+//        $stmt->bindValue("service", $service);
+//        $stmt->execute();
+//        return $stmt->fetch();
+
+        $sql = "update subscriber_services ss
+                inner join services se
+                on ss.service_id = se.service_id
+                set provisioned_state = ?
+                where ss.subs_id = ?
+                and se.service_desc = ?";
+        return $this->connection->executeUpdate($sql, [$action, $userid, $service ]);
     }
 
 }

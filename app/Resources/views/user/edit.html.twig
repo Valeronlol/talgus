@@ -1,0 +1,43 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    <div class="row center-align">
+        <h2>Изменить пользователя</h2>
+        {% for tablename, tabledata in userdata %}
+            <h5>{{ tablename }}</h5>
+            <table class="bordered responsive-table striped centered m30">
+                <thead>
+                    <tr>
+                        {% for key in tabledata|keys %}
+                            <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for val in tabledata %}
+                            {% if val == "Активен" or val == "Отключен" %}
+                                <td>
+                                    <button
+                                            data-action="on"
+                                            type="button"
+                                            class="waves-effect indigo accent-3 btn status-action"
+                                       {% if val == "Активен" %}disabled{% endif %}
+                                    >Подключить</button>
+                                    <button
+                                            data-action="off"
+                                            type="button"
+                                            class="waves-effect indigo accent-3 btn status-action"
+                                            {% if val == "Отключен" %}disabled{% endif %}
+                                    >Отключить</button>
+                                </td>
+                            {% else %}
+                                <td>{{ val }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </tbody>
+             </table>
+        {% endfor %}
+    </div>
+{% endblock %}

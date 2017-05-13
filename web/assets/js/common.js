@@ -18,8 +18,36 @@ $(function() {
 
     $('select').material_select();
 
+    // flash timer to hide
     setTimeout(function(){
-        $('div.flash-cont').fadeOut(600);
+        $('.flash-cont').fadeOut(600);
     }, 6000);
+
+    // Status action ajax handler
+    $('.status-action').on('click', function () {
+        var butt = $(this),
+            action = butt.data('action'),
+            service = butt.parent().prev().text();
+
+        $.ajax({
+            url: '../user-edit-ajax',
+            dataType: "json",
+            type: 'POST',
+            data: {
+                action: action,
+                service: service
+            },
+            success: function(data) {
+                if (data.status === true) {
+                    butt.attr('disabled', true)
+                        .siblings('.status-action')
+                        .attr('disabled', false);
+                }
+            },
+            error: function(e) {
+                console.log('error, невозможно изменить статус: ', e);
+            }
+        });
+    })
 
 });
