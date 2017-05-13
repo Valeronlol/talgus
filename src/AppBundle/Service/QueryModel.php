@@ -187,26 +187,36 @@ class QueryModel
      */
     public function updateBaseServiceStatus($userid, $service, $action)
     {
-//        $sql = "update subscriber_services ss
-//                inner join services se
-//                on ss.service_id = se.service_id
-//                set provisioned_state = :action
-//                where ss.subs_id = :id
-//                and se.service_desc = :service";
-//        $stmt = $this->connection->prepare($sql);
-//        $stmt->bindValue("action", $action);
-//        $stmt->bindValue("id", $userid);
-//        $stmt->bindValue("service", $service);
-//        $stmt->execute();
-//        return $stmt->fetch();
-
         $sql = "update subscriber_services ss
                 inner join services se
                 on ss.service_id = se.service_id
                 set provisioned_state = ?
                 where ss.subs_id = ?
                 and se.service_desc = ?";
+
         return $this->connection->executeUpdate($sql, [$action, $userid, $service ]);
+    }
+
+    public function getTransactionsData ()
+    {
+        $sql = "select t.msisdn as 'Номер абонента', 
+                ad.name as 'Тип транзакции', 
+                t.agent as 'Агент', 
+                t.amount as 'Сумма',
+                t.balance as 'Баланс абонента',
+                t.payment_agency as 'Терминал',
+                t.receivedate as 'Время регистрации транзакции',
+                t.transdate as 'Время обработки транзакции' from transaction t
+                inner join adjustment_type ad
+                on t.adjustment_type = ad.code
+                where t.subs_id = 1
+                and t.receivedate < CURDATE()
+                and t.receivedate >= DATE_SUB(CURDATE(),Interval 2 MONTH)
+                group by t.receivedate";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 
 }

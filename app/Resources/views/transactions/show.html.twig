@@ -1,0 +1,28 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    <div class="row center-align">
+        <h2>Статистика транзакций</h2>
+        <table class="bordered responsive-table striped centered m30">
+
+            <thead>
+                <tr>
+                    {% for key in transactionData[0]|keys %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for transacrion in transactionData %}
+                    <tr>
+                        {% for val in transacrion %}
+                            <td>{{ val }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+{% endblock %}
