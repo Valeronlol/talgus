@@ -39,10 +39,9 @@ class DefaultController extends Controller
             $this->qm = $this->container->get('app.query_model');
 
             if (null !== $data = $this->getAbonData($phone, $sim)) {
-                return $this->render('pages/main.html.twig', array(
-                    'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-                    'userdata' => $data,
-                ));
+                $this->get('session')->set('abonId', $data['subs_id']);
+
+                return $this->render('pages/main.html.twig', ['userdata' => $data,]);
             } else {
                 $this->addFlash(
                     'notice',
@@ -51,10 +50,7 @@ class DefaultController extends Controller
             }
 
         }
-
-        return $this->render('pages/main.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-        ));
+        return $this->render('pages/main.html.twig');
     }
 
     /**

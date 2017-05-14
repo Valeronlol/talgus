@@ -1,0 +1,43 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    <div class="row center-align">
+
+        {% if transactionData %}
+            <h2>Статистика транзакций</h2>
+            <table class="bordered responsive-table striped centered m30">
+
+                {% if app.session.get('abonId') %}
+                    <h5>Информация по абоненту c ID: {{ app.session.get('abonId') }}</h5>
+                {% endif %}
+
+                <thead>
+                    <tr>
+                        {% for key in transactionData[0]|keys %}
+                            <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for transacrion in transactionData %}
+                        <tr>
+                            {% for val in transacrion %}
+                                <td>{{ val }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        {% elseif errorMessage %}
+            <h5>{{ errorMessage }}</h5>
+            <p><a href="{{ path('homepage') }}">Вернуться на главную</a></p>
+        {% else %}
+
+            <h5>Сначала выберите абоента <a href="{{ path('homepage') }}">тут</a></h5>
+
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    <div class="row center-align">
+        <h2>Детализация абонента</h2>
+        {% if detalizationData %}
+
+            {% if app.session.get('abonId') %}
+                <h5>Информация по абоненту c ID: {{ app.session.get('abonId') }}</h5>
+            {% endif %}
+
+            <table class="bordered responsive-table striped centered m30">
+                <thead>
+                    <tr>
+                        {% for key in detalizationData[0]|keys %}
+                            <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detail in detalizationData %}
+                        <tr>
+                            {% for val in detail %}
+                                <td>{{ val }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% else %}
+
+            <h5>Сначала выберите абоента <a href="{{ path('homepage') }}">тут</a></h5>
+
+        {% endif %}
+    </div>
+{% endblock %}

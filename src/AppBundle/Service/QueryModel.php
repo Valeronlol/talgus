@@ -197,7 +197,11 @@ class QueryModel
         return $this->connection->executeUpdate($sql, [$action, $userid, $service ]);
     }
 
-    public function getTransactionsData ()
+    /**
+     * Get transactions data
+     * @return array
+     */
+    public function getTransactionsData ($userID)
     {
         $sql = "select t.msisdn as 'Номер абонента', 
                 ad.name as 'Тип транзакции', 
@@ -209,11 +213,40 @@ class QueryModel
                 t.transdate as 'Время обработки транзакции' from transaction t
                 inner join adjustment_type ad
                 on t.adjustment_type = ad.code
-                where t.subs_id = 1
+                where t.subs_id = :userID
                 and t.receivedate < CURDATE()
                 and t.receivedate >= DATE_SUB(CURDATE(),Interval 2 MONTH)
                 group by t.receivedate";
         $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("userID", $userID);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function getDetalizationData ($userID)
+    {
+        $sql = "select cd.orig_msisdn as 'Номер абонента А', 
+                cd.dest_msisdn as 'Номер абонента Б', 
+                cd.charged_msisdn as 'Тарифицируемый номер',
+                ct.call_type_desc as 'Тип события',
+                cd.duration as 'Длительность',
+                cd.cts_date as 'Время события',
+                cd.rate_plan as 'Тарифный план',
+                cd.rating_rule as 'Правило тарификации',
+                cd.charged_summ / 100000 as 'Списанная сумма',
+                cd.balance / 100000 as 'Баланс абонента',
+                d.location as 'Местоположение' from call_details cd
+                inner join call_types ct
+                on cd.call_type = ct.id
+                inner join dictionary_bts d
+                on cd.subs_location = d.code
+                where cd.subs_id = :userID
+                and cd.cts_date < CURDATE()
+                and cd.cts_date >= DATE_SUB(CURDATE(),Interval 2 MONTH)
+                group by cd.cts_date";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("userID", $userID);
         $stmt->execute();
 
         return $stmt->fetchAll();
