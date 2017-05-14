@@ -31,12 +31,12 @@
 
             </table>
 
-        {% elseif errorMessage %}
+        {% elseif errorMessage is defined %}
             <h5>{{ errorMessage }}</h5>
             <p><a href="{{ path('homepage') }}">Вернуться на главную</a></p>
         {% else %}
 
-            <h5>Сначала выберите абоента <a href="{{ path('homepage') }}">тут</a></h5>
+            <h5>Сначала выберите абонета <a href="{{ path('homepage') }}">тут</a></h5>
 
         {% endif %}
     </div>

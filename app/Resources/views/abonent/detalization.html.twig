@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="row center-align">
-        <h2>Детализация абонента</h2>
-        {% if detalizationData %}
 
+        {% if detalizationData %}
+            <h2>Детализация абонента</h2>
             {% if app.session.get('abonId') %}
                 <h5>Информация по абоненту c ID: {{ app.session.get('abonId') }}</h5>
             {% endif %}
@@ -28,9 +28,12 @@
                 </tbody>
             </table>
 
+        {% elseif errorMessage is defined %}
+            <h5>{{ errorMessage }}</h5>
+            <p><a href="{{ path('homepage') }}">Вернуться на главную</a></p>
         {% else %}
 
-            <h5>Сначала выберите абоента <a href="{{ path('homepage') }}">тут</a></h5>
+            <h5>Сначала выберите абонета <a href="{{ path('homepage') }}">тут</a></h5>
 
         {% endif %}
     </div>

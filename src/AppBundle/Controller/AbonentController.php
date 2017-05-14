@@ -43,6 +43,13 @@ class AbonentController extends DefaultController
 
         if (null !== $userID = $this->get('session')->get('abonId')) {
             $data = $qm->getDetalizationData($userID);
+
+            if( empty($data) ) {
+                return $this->render('abonent/detalization.html.twig', array(
+                    'detalizationData' => $data,
+                    'errorMessage' => 'По данному абоненту детализации не найдено'
+                ));
+            }
         }
 
         return $this->render('abonent/detalization.html.twig', array(
