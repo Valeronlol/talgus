@@ -224,6 +224,12 @@ class QueryModel
         return $stmt->fetchAll();
     }
 
+    /**
+     * Get detalization data by user ID
+     *
+     * @param $userID
+     * @return array
+     */
     public function getDetalizationData ($userID)
     {
         $sql = "select cd.orig_msisdn as 'Номер абонента А', 
@@ -250,6 +256,47 @@ class QueryModel
         $stmt->execute();
 
         return $stmt->fetchAll();
+    }
+
+    public function userPersonificationData ($data)
+    {
+        $sql = "INSERT INTO personification (subs_id, msisdn, imsi, name, surname, middle_name, contact_number, passport_number, adress, special_word)
+                VALUES (:subs_id, :msisdn, :imsi, :name, :surname, :middle_name, :contact_number, :passport_number, :adress, :special_word)
+                ON DUPLICATE KEY UPDATE
+                    msisdn = VALUES(msisdn),
+                    imsi   = VALUES(imsi),
+                    name = VALUES(name),
+                    surname = VALUES(surname),
+                    middle_name = VALUES(middle_name),
+                    contact_number = VALUES(contact_number),
+                    passport_number = VALUES(passport_number),
+                    adress = VALUES(adress),
+                    special_word = VALUES(special_word)";
+
+        $params = [
+            ':subs_id' => $data['subs_id'],
+            ':msisdn' => $data['msisdn'],
+            ':imsi' => $data['imsi'],
+            ':name' => $data['name'],
+            ':surname' => $data['surname'],
+            ':middle_name' => $data['middle_name'],
+            ':contact_number' => $data['contact_number'],
+            ':passport_number' => $data['passport_number'],
+            ':adress' => $data['adress'],
+            ':special_word' => $data['special_word'],
+        ];
+
+        return $this->connection->executeQuery($sql, $params);
+    }
+
+    public function getPersonificationData($userID)
+    {
+        $sql = "SELECT subs_id, msisdn, imsi, name, surname, middle_name, contact_number, passport_number, adress, special_word FROM personification WHERE subs_id = :id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("id", $userID);
+        $stmt->execute();
+
+        return $stmt->fetch();
     }
 
 }

@@ -1,0 +1,72 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+    {% if app.session.get('abonId') %}
+        <div class="row content-full-vh">
+            <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+                <form class="card-panel teal lighten-5 center-align" name="change_user_pass" method="POST">
+
+                    <h4>Регистрация абонента</h4>
+
+                    <div class="input-field col s6">
+                        <label for="subs_id">ID</label>
+                        <input disabled type="text" name="subs_id" id="subs_id" value="{{ app.session.get('abonId') }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="msisdn">Введите номер телефона</label>
+                        <input type="number" class="validate" name="msisdn" id="msisdn" value="{{ app.request.get('msisdn') ?: personificationData.msisdn }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="imsi">Введите номер SIM</label>
+                        <input type="number" class="validate" name="imsi" id="imsi" value="{{ app.request.get('imsi') ?: personificationData.imsi }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="name">Введите имя</label>
+                        <input type="text" class="validate" name="name" id="name" value="{{ app.request.get('name') ?: personificationData.name }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="surname">Введите фамилие</label>
+                        <input type="text" class="validate" name="surname" id="surname" value="{{ app.request.get('surname') ?: personificationData.surname }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="middle_name">Введите отчество</label>
+                        <input type="text" class="validate" name="middle_name" id="middle_name" value="{{ app.request.get('middle_name') ?: personificationData.middle_name }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="contact_number">Введите контактный номер телефона</label>
+                        <input type="text" class="validate" name="contact_number" id="contact_number" value="{{ app.request.get('contact_number') ?: personificationData.contact_number }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="passport_number">Введите номер паспорта</label>
+                        <input type="text" class="validate" name="passport_number" id="passport_number" value="{{ app.request.get('passport_number') ?: personificationData.passport_number }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="adress">Введите адрес</label>
+                        <input type="text" class="validate" name="adress" id="adress" value="{{ app.request.get('adress') ?: personificationData.adress }}" />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="special_word">Введите кодовое слово</label>
+                        <input type="text" class="validate" name="special_word" id="special_word" value="{{ app.request.get('special_word') ?: personificationData.special_word }}" />
+                    </div>
+
+                    <div class="input-field col s12">
+                        {{ parent() }}
+                    </div>
+
+                    <input type="reset" class="btn-flat grey-text waves-effect" value="Очистить">
+                    <input type="submit" class="btn indigo accent-3 waves-effect waves-light" name="submit" value="Сохранить">
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

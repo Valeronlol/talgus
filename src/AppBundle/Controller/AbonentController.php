@@ -14,6 +14,10 @@ class AbonentController extends DefaultController
      */
     public function showTransactionsAction()
     {
+        if (!$this->isLoged()) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $qm = $this->container->get('app.query_model');
         $data = [];
 
@@ -38,6 +42,10 @@ class AbonentController extends DefaultController
      */
     public function showDetalizationAction(Request $request)
     {
+        if (!$this->isLoged()) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $qm = $this->container->get('app.query_model');
         $data = [];
 
@@ -54,6 +62,46 @@ class AbonentController extends DefaultController
 
         return $this->render('abonent/detalization.html.twig', array(
             'detalizationData' => $data,
+        ));
+    }
+
+    /**
+     * @Route("/personification", name="abonent_personification")
+     */
+    public function abonPersonificationAction (Request $request)
+    {
+        if (!$this->isLoged()) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        if (! $userID = $this->get('session')->get('abonId')) {
+            $this->addFlash(
+                'notice',
+                'Сначала выберите абонента для регистрации!'
+            );
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        $qm = $this->container->get('app.query_model');
+
+        if ($request->request->get('submit'))
+        {
+            $data = $request->request->all();
+            $data['subs_id'] = $userID;
+
+            $qm->userPersonificationData($data);
+
+            $this->addFlash(
+                'success',
+                'Регистрационные данные пользователя обновлены!'
+            );
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('abonent/personification.html.twig', array(
+            'personificationData' => $qm->getPersonificationData($userID),
         ));
     }
 }
