@@ -88,17 +88,14 @@ class UserController extends DefaultController
 
         if(null !== $abonent = $qm->getUserStatisticsAbonentById($userID)) {
             $userdata['Абонент'] = $abonent;
-            unset($abonent);
         }
 
         if(null !== $abonent = $base = $qm->getUserStatisticsBaseServicesById($userID)) {
             $userdata['Базовые сервисы'] = $base;
-            unset($base);
         }
 
         if(null !== $additional = $additional = $qm->getUserStatisticsAdditionalServiceById($userID)) {
             $userdata['Дополнительные сервисы'] = $additional;
-            unset($additional);
         }
 
         return $userdata;

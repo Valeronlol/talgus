@@ -122,12 +122,12 @@ class QueryModel
                 s.msisdn as'Номер абонента', 
                 s.startdate as 'Дата активации'
                 from priceplan t 
-                join subscriber s on	s.priceplan = t.priceplan_id                                        
+                join subscriber s on s.priceplan = t.priceplan_id                                        
                 where s.subs_id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue("id", $id);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     /**
@@ -150,7 +150,7 @@ class QueryModel
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue("id", $id);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     /**
@@ -177,7 +177,7 @@ class QueryModel
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue("id", $id);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     /**

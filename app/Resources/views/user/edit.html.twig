@@ -8,35 +8,43 @@
             <table class="bordered responsive-table striped centered m30">
                 <thead>
                     <tr>
-                        {% for key in tabledata|keys %}
-                            <th>{{ key }}</th>
+                        {% set break = false %}
+                        {% for group in tabledata if not break %}
+                            {% for header in group|keys %}
+                                <th>{{ header }}</th>
+                            {% endfor %}
+                            {% set break = true %}
                         {% endfor %}
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        {% for val in tabledata %}
-                            {% if val == "Активен" or val == "Отключен" %}
-                                <td>
-                                    <button
+                    {% for group in tabledata %}
+                        <tr>
+                            {% for val in group %}
+                                {% if val == "Активен" or val == "Отключен" %}
+                                    <td>
+                                        <button
                                             data-action="on"
                                             type="button"
                                             class="waves-effect indigo accent-3 btn status-action"
-                                       {% if val == "Активен" %}disabled{% endif %}
-                                    >Подключить</button>
-                                    <button
+                                           {% if val == "Активен" %}disabled{% endif %}
+                                        >Подключить</button>
+                                        <button
                                             data-action="off"
                                             type="button"
                                             class="waves-effect indigo accent-3 btn status-action"
                                             {% if val == "Отключен" %}disabled{% endif %}
-                                    >Отключить</button>
-                                </td>
-                            {% else %}
-                                <td>{{ val }}</td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
+                                        >Отключить</button>
+                                    </td>
+                                {% else %}
+                                    <td>{{ val }}</td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
                 </tbody>
+
              </table>
         {% endfor %}
     </div>
