@@ -206,8 +206,8 @@ class QueryModel
         $sql = "select t.msisdn as 'Номер абонента', 
                 ad.name as 'Тип транзакции', 
                 t.agent as 'Агент', 
-                t.amount as 'Сумма',
-                t.balance as 'Баланс абонента',
+                t.amount/100000 as 'Сумма',
+                t.balance/100000 as 'Баланс абонента',
                 t.payment_agency as 'Терминал',
                 t.receivedate as 'Время регистрации транзакции',
                 t.transdate as 'Время обработки транзакции' from transaction t

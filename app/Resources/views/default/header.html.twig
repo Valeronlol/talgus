@@ -52,7 +52,7 @@
                     <li><a href="#">Настраиваемая</a></li>
                 </ul>
             </li>
-            <li><a href="#">Настройка сервисов</a></li>
+            <li><a href="{{ path('service_configuration') }}">Настройка сервисов</a></li>
         </ul>
         <span class="right login-message">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}

@@ -120,4 +120,16 @@ class DefaultController extends Controller
 
         return $this->render('pages/ua.html.twig');
     }
+
+    /**
+     * @Route("/service-config", name="service_configuration")
+     */
+    public function serviceConfigAction(Request $request)
+    {
+        if (!$this->isLoged()) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        return $this->render('pages/service-config.html.twig');
+    }
 }
