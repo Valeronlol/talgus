@@ -48,7 +48,9 @@
                         <td>{{ userdata.State }}</td>
 
                         <td class="action-table-row">
-                            <a href="{{ path('user_edit', {'userID': userdata.subs_id}) }}">Изменить</a>
+                            {% if userdata.State != 'deactivated' %}
+                                <a href="{{ path('user_edit', {'userID': userdata.subs_id}) }}">Изменить</a>
+                            {% endif %}
                             <a href="{{ path('user_show', {'userID': userdata.subs_id}) }}">Просмотр</a>
                         </td>
                     </tr>

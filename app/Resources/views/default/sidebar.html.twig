@@ -3,7 +3,10 @@
     <li><a href="{{ path('homepage') }}">Поиск абонента</a></li>
     <li><a href="{{ path('abonent_show_transactions') }}">Транзакции</a></li>
     <li><a href="{{ path('abonent_show_detalization') }}">Детализация абонента</a></li>
-    <li><a href="{{ path('abonent_personification') }}">Регистрация абонента</a></li>
+
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SELLER') %}
+        <li><a href="{{ path('abonent_personification') }}">Регистрация абонента</a></li>
+    {% endif %}
 
     {#<li><div class="divider"></div></li>#}
     {#<li>#}

@@ -26,6 +26,11 @@ class UserController extends DefaultController
      */
     public function userEditAction($userID)
     {
+        $qm = $this->container->get('app.query_model');
+
+        if (2 ===$qm->isActive($userID)) {
+            return $this->render('user/edit.html.twig', ['errorMessage' => 'Не активен']);
+        }
         $userdata = $this->getUserData($userID);
 
         return $this->render('user/edit.html.twig', array(

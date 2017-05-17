@@ -9,9 +9,7 @@
             </li>
 
             <li>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="#" data-activates="slide-out" class="button-collapse-custom">Абонент<i class="material-icons left">menu</i></a>
-                {% endif %}
+                <a href="#" data-activates="slide-out" class="button-collapse-custom">Абонент<i class="material-icons left">menu</i></a>
             </li>
 
             <li>
@@ -25,9 +23,9 @@
                         <li>
                             <a href="#" class="subdropdown-button" data-activates="secondDRP">Пользователи</a>
                             <ul id='secondDRP' class='dropdown-content secondDropDown'>
-                                <li><a class="truncate" href="{{ path('fos_user_registration_register') }}">Добавить</a></li>
-                                <li><a class="truncate" href="{{ path('change_user_password') }}">Сменить пароль пользователя</a></li>
-                                <li><a class="truncate" href="{{ path('block_user') }}">Заблокировать</a></li>
+                                <li><a href="{{ path('fos_user_registration_register') }}">Добавить</a></li>
+                                <li><a href="{{ path('change_user_password') }}">Сменить пароль пользователя</a></li>
+                                <li><a href="{{ path('block_user') }}">Блокировать</a></li>
                             </ul>
                         </li>
                     {% endif %}
@@ -35,23 +33,23 @@
                     <li><a href="#exit_modal">Выход из системы</a></li>
                 </ul>
             </li>
-            <li>
-                <a class="dropdown-button" href="#" data-activates="dropdown2">Управление номерами<i class="material-icons right">arrow_drop_down</i></a>
-                <ul id="dropdown2" class="dropdown-content">
-                    <li><a href="#">Пакет сим-карты</a></li>
-                    <li><a href="#">Мобильные номера</a></li>
-                    <li><a href="#">Карты оплаты</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-button" href="#" data-activates="dropdown_9">Статистика продаж<i class="material-icons right">arrow_drop_down</i></a>
-                <ul id="dropdown_9" class="dropdown-content">
-                    <li><a href="#">Недельная</a></li>
-                    <li><a href="#">Месячная</a></li>
-                    <li><a href="#">Квартальная</a></li>
-                    <li><a href="#">Настраиваемая</a></li>
-                </ul>
-            </li>
+            {#<li>#}
+                {#<a class="dropdown-button" href="#" data-activates="dropdown2">Управление номерами<i class="material-icons right">arrow_drop_down</i></a>#}
+                {#<ul id="dropdown2" class="dropdown-content">#}
+                    {#<li><a href="#">Пакет сим-карты</a></li>#}
+                    {#<li><a href="#">Мобильные номера</a></li>#}
+                    {#<li><a href="#">Карты оплаты</a></li>#}
+                {#</ul>#}
+            {#</li>#}
+            {#<li>#}
+                {#<a class="dropdown-button" href="#" data-activates="dropdown_9">Статистика продаж<i class="material-icons right">arrow_drop_down</i></a>#}
+                {#<ul id="dropdown_9" class="dropdown-content">#}
+                    {#<li><a href="#">Недельная</a></li>#}
+                    {#<li><a href="#">Месячная</a></li>#}
+                    {#<li><a href="#">Квартальная</a></li>#}
+                    {#<li><a href="#">Настраиваемая</a></li>#}
+                {#</ul>#}
+            {#</li>#}
 
             <li>
                 <a class="dropdown-button" href="#" data-activates="dropdown_services">Настройка сервисов<i class="material-icons right">arrow_drop_down</i></a>

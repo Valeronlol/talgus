@@ -69,9 +69,9 @@ $(function() {
                 var messageCont;
                 if (data.status === true) {
                     message = $('<span class="service-status">'
-                        + 'Новое имя для ID: ' + data.id +
-                        '<br>Установлено значение: "' + data.newValue +
-                        '"</span>');
+                                + 'Новое имя для сервиса с ID: ' + data.id +
+                                '<br>Установлено значение: "' + data.newValue +
+                                '"</span>');
                     Materialize.toast(message, 3000);
                 }
             },

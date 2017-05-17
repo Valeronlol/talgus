@@ -165,7 +165,7 @@ class DefaultController extends Controller
             $id = $request->request->get('id');
             $table = $this->getStatusType( $request->headers->get('referer') );
 
-            if ($qm->setBaseServiceStatistics($id, $value, $table) ) {
+            if ($qm->setNewServiceStatistics($id, $value, $table) ) {
                 return new JsonResponse([
                     'status' => true,
                     'newValue' => $value,

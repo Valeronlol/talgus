@@ -34,7 +34,9 @@ security:
         - { path: ^/change-password, role: [ROLE_SELLER, ROLE_MANAGER] }
         - { path: ^/block-user, role: ROLE_ADMIN }
         - { path: ^/service-config, role: ROLE_ADMIN }
-        - { path: ^/personification, role: ROLE_ADMIN }
-        - { path: ^/show-detalization, role: ROLE_ADMIN }
-        - { path: ^/show-transactions, role: ROLE_ADMIN }
+        - { path: ^/personification, role: ROLE_SELLER }
+        - { path: ^/show-detalization, role: [ROLE_SELLER, ROLE_MANAGER] }
+        - { path: ^/show-transactions, role: [ROLE_SELLER, ROLE_MANAGER] }
         - { path: ^/user-edit, role: ROLE_ADMIN }
+        - { path: ^/base-service-config, role: ROLE_MANAGER }
+        - { path: ^/additional-service-config, role: ROLE_MANAGER }

@@ -1,6 +1,7 @@
 {% extends 'default/index.html.twig' %}
 
 {% block content %}
+    {% if userdata is defined %}
     <div class="row center-align">
         <h2>Изменить пользователя</h2>
         {% for tablename, tabledata in userdata %}
@@ -48,4 +49,8 @@
              </table>
         {% endfor %}
     </div>
+    {% elseif errorMessage is defined %}
+        <h3>Ошибка, действие не возможно!</h3>
+    {% endif %}
+
 {% endblock %}

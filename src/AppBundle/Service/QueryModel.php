@@ -349,18 +349,16 @@ class QueryModel
      * @param $table
      * @return bool
      */
-    public function setBaseServiceStatistics($id, $value, $table)
+    public function setNewServiceStatistics($id, $value, $table)
     {
-        if ($table == 'services') {
-            $desc = 'service_desc';
-            $row_id = 'service_id';
-        } elseif ($table == 'auxiliary_services') {
-            $desc = 'auxservice_desc';
-            $row_id = 'auxservice_id';
-        } else {
-            return false;
-        }
+        $desc = 'service_desc';
+        $row_id = 'service_id';
 
+        if ($table === 'auxiliary_services') {
+            $prefix = 'aux';
+            $desc = $prefix . $desc;
+            $row_id = $prefix . $row_id;
+        }
 
         $sql = "UPDATE $table SET $desc = :value WHERE $row_id = :id";
 
@@ -369,6 +367,16 @@ class QueryModel
         $stmt->bindValue(":id", $id, \PDO::PARAM_INT);
 
         return $stmt->execute();
+    }
+
+    public function isActive($userID)
+    {
+        $sql = "SELECT state FROM subscriber WHERE subs_id = :id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("id", $userID);
+        $stmt->execute();
+        $res = $stmt->fetch();
+        return intval($res['state']);
     }
 
 }
