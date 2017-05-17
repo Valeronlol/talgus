@@ -48,6 +48,37 @@ $(function() {
                 console.log('error, невозможно изменить статус: ', e);
             }
         });
-    })
+    });
+
+    //Service button
+    $('.service-handler').on('click', function () {
+        var tr = $(this).closest('tr'),
+            id = +tr.children('.loop-first').text(),
+            input = tr.find('.loop-last'),
+            message;
+
+        $.ajax({
+            url: './service-edit-ajax',
+            dataType: "json",
+            type: 'POST',
+            data: {
+                id: id,
+                value: input.val()
+            },
+            success: function(data) {
+                var messageCont;
+                if (data.status === true) {
+                    message = $('<span class="service-status">'
+                        + 'Новое имя для ID: ' + data.id +
+                        '<br>Установлено значение: "' + data.newValue +
+                        '"</span>');
+                    Materialize.toast(message, 3000);
+                }
+            },
+            error: function(e) {
+                console.log('error, невозможно изменить статус: ', e);
+            }
+        });
+    });
 
 });

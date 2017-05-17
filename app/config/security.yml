@@ -33,3 +33,8 @@ security:
         - { path: ^/statistics, role: ROLE_SELLER }
         - { path: ^/change-password, role: [ROLE_SELLER, ROLE_MANAGER] }
         - { path: ^/block-user, role: ROLE_ADMIN }
+        - { path: ^/service-config, role: ROLE_ADMIN }
+        - { path: ^/personification, role: ROLE_ADMIN }
+        - { path: ^/show-detalization, role: ROLE_ADMIN }
+        - { path: ^/show-transactions, role: ROLE_ADMIN }
+        - { path: ^/user-edit, role: ROLE_ADMIN }

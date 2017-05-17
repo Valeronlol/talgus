@@ -258,6 +258,10 @@ class QueryModel
         return $stmt->fetchAll();
     }
 
+    /**
+     * @param $data
+     * @return \Doctrine\DBAL\Driver\Statement
+     */
     public function userPersonificationData ($data)
     {
         $sql = "INSERT INTO personification (subs_id, msisdn, imsi, name, surname, middle_name, contact_number, passport_number, adress, special_word)
@@ -289,6 +293,10 @@ class QueryModel
         return $this->connection->executeQuery($sql, $params);
     }
 
+    /**
+     * @param $userID
+     * @return mixed
+     */
     public function getPersonificationData($userID)
     {
         $sql = "SELECT subs_id, msisdn, imsi, name, surname, middle_name, contact_number, passport_number, adress, special_word FROM personification WHERE subs_id = :id";
@@ -297,6 +305,70 @@ class QueryModel
         $stmt->execute();
 
         return $stmt->fetch();
+    }
+
+    /**
+     * @return array
+     */
+    public function getBaseServiceStatistics()
+    {
+        $sql = "select ss.service_id as 'ID сервиса', 
+                ss.service_name as 'Имя сервиса в биллинге', 
+                ss.service_desc as 'Отображаемое имя в CRM'
+                from services ss";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public function getAdditionalServiceStatistics()
+    {
+        $sql = "select au.auxservice_id as 'ID сервиса', 
+                au.auxservice_name as 'Имя сервиса в биллинге', 
+                au.auxservise_price/100000 as 'Абонентская плата',
+                case
+                when au.billing_period = 0 then 'без АП'
+                when au.billing_period = 1 then 'День'
+                when au.billing_period = 2 then '3 дня'
+                when au.billing_period = 3 then 'Неделя'
+                when au.billing_period = 4 then 'Месяц'
+                else 'Ошибка'
+                end as 'Период снятия АП',
+                au.auxservice_desc as 'Отображаемое имя в CRM'
+                from auxiliary_services au";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * @param $id
+     * @param $value
+     * @param $table
+     * @return bool
+     */
+    public function setBaseServiceStatistics($id, $value, $table)
+    {
+        if ($table == 'services') {
+            $desc = 'service_desc';
+            $row_id = 'service_id';
+        } elseif ($table == 'auxiliary_services') {
+            $desc = 'auxservice_desc';
+            $row_id = 'auxservice_id';
+        } else {
+            return false;
+        }
+
+
+        $sql = "UPDATE $table SET $desc = :value WHERE $row_id = :id";
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(":value", $value, \PDO::PARAM_STR);
+        $stmt->bindValue(":id", $id, \PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 
 }

@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -122,14 +124,77 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/service-config", name="service_configuration")
+     * @Route("/base-service-config", name="base_service_configuration")
      */
-    public function serviceConfigAction(Request $request)
+    public function baseServiceConfigAction(Request $request)
     {
         if (!$this->isLoged()) {
             return $this->redirectToRoute('fos_user_security_login');
         }
 
-        return $this->render('pages/service-config.html.twig');
+        $qm = $this->container->get('app.query_model');
+        $data = $qm->getBaseServiceStatistics();
+
+        return $this->render('pages/base-service-config.html.twig',[ 'serviceData' => $data]);
+    }
+
+    /**
+     * @Route("/additional-service-config", name="additional_service_configuration")
+     */
+    public function additionalServiceConfigAction(Request $request)
+    {
+        if (!$this->isLoged()) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        $qm = $this->container->get('app.query_model');
+        $data = $qm->getAdditionalServiceStatistics();
+
+        return $this->render('pages/additional-service-config.html.twig',[ 'serviceData' => $data]);
+    }
+
+    /**
+     * @Route("/service-edit-ajax", name="service_edit_ajax")
+     */
+    public function setBaseStatus(Request $request)
+    {
+        if ($request->isXMLHttpRequest())
+        {
+            $qm = $this->container->get('app.query_model');
+            $value = $request->request->get('value');
+            $id = $request->request->get('id');
+            $table = $this->getStatusType( $request->headers->get('referer') );
+
+            if ($qm->setBaseServiceStatistics($id, $value, $table) ) {
+                return new JsonResponse([
+                    'status' => true,
+                    'newValue' => $value,
+                    'id' => $id
+                ]);
+            } else {
+                return new JsonResponse([
+                    'status' => false
+                ]);
+            }
+        }
+
+        return new Response('This is not ajax!', 400);
+    }
+
+    /**
+     * @param $referer
+     * @return bool|string
+     */
+    public function getStatusType($referer)
+    {
+        $typeArr = parse_url($referer);
+
+        if ( strpos($typeArr['path'], 'base-service-config') ){
+            return 'services';
+        } elseif (strpos($typeArr['path'], 'additional-service-config')) {
+            return 'auxiliary_services';
+        }
+
+        return false;
     }
 }

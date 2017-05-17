@@ -1,0 +1,49 @@
+{% extends 'default/index.html.twig' %}
+
+{% block content %}
+
+    <div class="row center-align">
+        <h3>Настройка базовых сервисов</h3>
+        <table class="bordered responsive-table striped centered m30">
+
+            <thead>
+            <tr>
+                {% set break = false %}
+                {% for group in serviceData if not break %}
+                    {% for header in group|keys %}
+                        <th>{{ header }}</th>
+                    {% endfor %}
+                    {% set break = true %}
+                {% endfor %}
+                <th>Дополнительно</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for group in serviceData %}
+                <tr>
+                    {% for val in group %}
+                        {% if loop.last %}
+                            <td>
+                                <input class="center-align loop-last" type="text" value="{{ val }}">
+                            </td>
+                        {% elseif loop.first %}
+                            <td class="loop-first">{{ val }}</td>
+                        {% else %}
+                            <td>{{ val }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    <td class="service-status-wrapper">
+                        <button type="button" class="btn waves-effect waves-light indigo accent-3 service-handler">
+                            <i class="material-icons left">mode_edit</i>
+                            Изменить
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
